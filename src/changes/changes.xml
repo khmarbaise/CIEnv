@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<document>
+	<properties>
+		<title>Feature Additions, Fixes, and Updates</title>
+	</properties>
+	<body>
+		<release version="1.0.0" date="XX.XX.2010" desc="First Release">
+			<action
+				dev="Karl Heinz Marbaise"
+				type="fix"
+				issue="1">Fixed first issue.
+			</action>
+		</release>
+	</body>
+</document>

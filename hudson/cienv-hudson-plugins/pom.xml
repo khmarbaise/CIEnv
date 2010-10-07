@@ -1,0 +1,169 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.soebes.cienvironment.hudson</groupId>
+		<artifactId>hudson-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+
+	<groupId>com.soebes.cienvironment.hudson</groupId>
+    <artifactId>cienv-hudson-plugins</artifactId>
+    <packaging>rpm</packaging>
+    <name>CIEnvironment :: Hudson ::   Plugins</name>
+
+	<description>
+		This will define the collection of Plugins which will be available
+		for Hudson in the Continous Integration Environment.
+	</description>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.jvnet.hudson.plugins</groupId>
+									<artifactId>m2-extra-steps</artifactId>
+									<type>hpi</type>
+									<version>1.1.3</version>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>org.jvnet.hudson.plugins</groupId>
+									<artifactId>zentimestamp</artifactId>
+									<type>hpi</type>
+									<version>1.1</version>
+								</artifactItem>
+								
+								<artifactItem>
+									<groupId>org.jvnet.hudson.plugins</groupId>
+									<artifactId>cobertura</artifactId>
+									<type>hpi</type>
+									<version>0.8.10</version>
+								</artifactItem>
+								
+								<artifactItem>
+									<groupId>org.jvnet.hudson.plugins.m2release</groupId>
+									<artifactId>m2release</artifactId>
+									<type>hpi</type>
+									<version>0.3.3</version>
+								</artifactItem>
+								
+								<artifactItem>
+									<groupId>org.jvnet.hudson.plugins</groupId>
+									<artifactId>m2-extra-steps</artifactId>
+									<type>hpi</type>
+									<version>1.1.2</version>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>org.jvnet.hudson.plugins</groupId>
+									<artifactId>dependencyanalyzer</artifactId>
+									<type>hpi</type>
+									<version>0.4</version>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>org.jvnet.hudson.plugins</groupId>
+									<artifactId>svn-tag</artifactId>
+									<type>hpi</type>
+									<version>1.12</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.jvnet.hudson.plugins</groupId>
+									<artifactId>svn-release-mgr</artifactId>
+									<type>hpi</type>
+									<version>1.0</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.jvnet.hudson.plugins</groupId>
+									<artifactId>promoted-builds</artifactId>
+									<type>hpi</type>
+									<version>1.5</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.jvnet.hudson.plugins</groupId>
+									<artifactId>promoted-builds-simple</artifactId>
+									<type>hpi</type>
+									<version>1.1</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.jvnet.hudson.plugins</groupId>
+									<artifactId>release</artifactId>
+									<type>hpi</type>
+									<version>1.9</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.jvnet.hudson.plugins</groupId>
+									<artifactId>active-directory</artifactId>
+									<type>hpi</type>
+									<version>1.16</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.jvnet.hudson.plugins</groupId>
+									<artifactId>jobConfigHistory</artifactId>
+									<type>hpi</type>
+									<version>1.3</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.tomfolga</groupId>
+									<artifactId>maven-info</artifactId>
+									<version>0.0.2</version>
+									<type>hpi</type>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>rpm-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+					<requires>
+						<require>cienv-hudsonuser &gt;= ${project.version}</require>
+					</requires>
+                    <mappings>
+                       <mapping>
+                            <directory>${hudson.home}/.hudson/plugins</directory>
+                            <filemode>0644</filemode>
+                            <username>${hudson.user}</username>
+                            <groupname>${hudson.group}</groupname>
+							<directoryIncluded>false</directoryIncluded>
+							<sources>
+								<source>
+									<location>${project.build.directory}/dependency</location>
+								</source>
+							</sources>
+                        </mapping>
+                       <mapping>
+                            <directory>${hudson.home}/.hudson</directory>
+                            <filemode>0755</filemode>
+                            <username>${hudson.user}</username>
+                            <groupname>${hudson.group}</groupname>
+                        </mapping>
+                       <mapping>
+                            <directory>${hudson.home}/.hudson/plugins</directory>
+                            <filemode>0755</filemode>
+                            <username>${hudson.user}</username>
+                            <groupname>${hudson.group}</groupname>
+                        </mapping>
+                    </mappings>
+                </configuration>
+            </plugin>
+		</plugins>
+	</build>	
+</project>

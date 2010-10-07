@@ -1,0 +1,80 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.soebes.cienvironment.hudson</groupId>
+		<artifactId>hudson-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+
+	<groupId>com.soebes.cienvironment.hudson</groupId>
+    <artifactId>cienv-hudson-war</artifactId>
+    <packaging>rpm</packaging>
+    <name>CIEnvironment :: Hudson ::   Hudson WAR</name>
+	<description>The hudson.war for usage in Tomcat.</description>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.jvnet.hudson.main</groupId>
+									<artifactId>hudson-war</artifactId>
+									<version>${hudson.version}</version>
+									<type>war</type>
+									<overWrite>true</overWrite>
+									<destFileName>ROOT.war</destFileName>
+								</artifactItem>
+							</artifactItems>
+							<!-- other configurations here -->
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>rpm-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+					<requires>
+						<require>cienv-tomcat &gt;= ${project.version}</require>
+					</requires>
+                    <mappings>
+                        <mapping>
+                            <directory>${hudson.home}/tomcat-${project.version}/webapps/</directory>
+                            <filemode>0644</filemode>
+							<username>${hudson.user}</username>
+							<groupname>${hudson.group}</groupname>
+                            <sources>
+                                <source>
+                                    <location>${basedir}/target/dependency/ROOT.war</location>
+                                    <targetArchitecture>x86_64</targetArchitecture>
+                                </source>
+                            </sources>
+                        </mapping>
+                        <mapping>
+                            <directory>${hudson.home}/tomcat-${project.version}/webapps/</directory>
+                            <filemode>0755</filemode>
+                            <username>${hudson.user}</username>
+                            <groupname>${hudson.group}</groupname>
+						</mapping>
+                    </mappings>
+                </configuration>
+            </plugin>
+
+		</plugins>
+	</build>	
+</project>

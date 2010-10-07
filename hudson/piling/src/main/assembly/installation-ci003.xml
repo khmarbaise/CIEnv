@@ -1,0 +1,29 @@
+<assembly>
+	<id>installation-ci003</id>
+	<formats>
+		<format>tar.gz</format>
+	</formats>
+	<includeBaseDirectory>true</includeBaseDirectory>
+	<dependencySets>
+		<dependencySet>
+			<useTransitiveDependencies>false</useTransitiveDependencies>
+			<useProjectArtifact>false</useProjectArtifact>
+			<unpack>false</unpack>
+			<scope>runtime</scope>
+			<fileMode>0644</fileMode>
+		</dependencySet>
+	</dependencySets>
+	<fileSets>
+		<fileSet>
+			<filtered>true</filtered>
+			<directory>src/main/resources/ci003</directory>
+			<outputDirectory>/</outputDirectory>
+			<includes>
+				<include>install.sh</include>
+				<include>deinstall.sh</include>
+			</includes>
+			<fileMode>0755</fileMode>
+		</fileSet>
+	</fileSets>
+</assembly>
+

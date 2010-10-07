@@ -1,0 +1,52 @@
+<settings>
+
+	<mirrors>
+		<mirror>
+			<id>nexus</id>
+			<mirrorOf>*</mirrorOf>
+			<url>http://nexus.dev.soebes.de/nexus/content/groups/PublicTestRepository</url>
+		</mirror>
+	</mirrors>
+
+
+	<pluginGroups>
+	  <pluginGroup>org.jvnet.hudson.tools</pluginGroup>
+	</pluginGroups>
+
+	<profiles>
+		<profile>
+			<id>nexus</id>
+
+			<repositories>
+				<repository>
+					<id>central</id>
+					<url>http://central</url>
+					<releases><enabled>true</enabled></releases>
+					<snapshots><enabled>true</enabled></snapshots>
+				</repository>
+			</repositories>
+		</profile>
+	</profiles>
+	<activeProfiles>
+		<!--make the profile active all the time -->
+		<activeProfile>nexus</activeProfile>
+	</activeProfiles>
+
+	<servers>
+		<server>
+			<id>deployment</id>
+			<username>deployment</username>
+			<password>deployment</password>
+		</server>
+		<server>
+			<id>release</id>
+			<username>deployment</username>
+			<password>deployment</password>
+		</server>
+		<server>
+			<id>snapshot</id>
+			<username>snapshotdeploy</username>
+			<password>snapshot</password>
+		</server>
+	</servers>
+</settings>

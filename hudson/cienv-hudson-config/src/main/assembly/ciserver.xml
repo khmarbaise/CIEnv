@@ -1,0 +1,20 @@
+<assembly>
+	<id>conf</id>
+	<baseDirectory>/</baseDirectory>
+	<fileSets>
+		<fileSet>
+			<directory>${basedir}/src/main/resources</directory>
+			<outputDirectory>/</outputDirectory>
+			<filtered>true</filtered>
+			<includes>
+				<include>*</include>
+			</includes>
+		</fileSet>
+	</fileSets>
+</assembly>
+
+<!--
+				<include>hudson.task.Maven.xml</include>
+				<include>config.xml</include>
+				<include>hudson.task.Mailer.xml</include>
+-->

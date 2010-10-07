@@ -1,0 +1,93 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"> <modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.soebes.cienvironment.hudson</groupId>
+		<artifactId>hudson-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+
+    <artifactId>cienv-tools</artifactId>
+    <packaging>rpm</packaging>
+    <name>CIEnvironment :: Hudson ::   Tools</name>
+
+	<description>
+		This contains the tools which will be used by the build processes
+		which are controlled by Hudson.
+	</description>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.apache.maven</groupId>
+									<artifactId>apache-maven</artifactId>
+									<version>2.2.1</version>
+									<classifier>bin</classifier>
+									<type>tar.gz</type>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.apache.maven</groupId>
+									<artifactId>apache-maven</artifactId>
+									<version>3.0-beta-1</version>
+									<classifier>bin</classifier>
+									<type>tar.gz</type>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>rpm-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+					<requires>
+						<require>cienv-hudsonuser &gt;= ${project.version}</require>
+					</requires>
+                    <mappings>
+                       <mapping>
+                            <directory>${hudson.home}/tools</directory>
+                            <filemode>0644</filemode>
+                            <username>${hudson.user}</username>
+                            <groupname>${hudson.group}</groupname>
+							<directoryIncluded>false</directoryIncluded>
+							<sources>
+								<source>
+									<location>${project.build.directory}/dependency</location>
+								</source>
+							</sources>
+                        </mapping>
+                       <mapping>
+                            <directory>${hudson.home}/tools</directory>
+                            <filemode>0755</filemode>
+                            <username>${hudson.user}</username>
+                            <groupname>${hudson.group}</groupname>
+                        </mapping>
+                    </mappings>
+					<postinstallScriptlet>
+						<script>cd ${hudson.home}/tools
+								tar -zxf apache-maven-2.2.1-bin.tar.gz
+								tar -zxf apache-maven-3.0-beta-1-bin.tar.gz
+								chown -R ${hudson.user}:${hudson.group} apache-maven-2.2.1
+								chown -R ${hudson.user}:${hudson.group} apache-maven-3.0-beta-1
+						</script>
+					</postinstallScriptlet>
+                </configuration>
+            </plugin>
+		</plugins>
+	</build>
+</project>
+

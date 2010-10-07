@@ -1,0 +1,18 @@
+<assembly>
+	<id>proxy</id>
+	<formats>
+		<format>tar.gz</format>
+	</formats>
+	<baseDirectory>/</baseDirectory>
+	<fileSets>
+		<fileSet>
+			<directory>${basedir}/src/main/resources</directory>
+			<outputDirectory>/</outputDirectory>
+			<filtered>true</filtered>
+			<includes>
+				<include>proxy.conf</include>
+			</includes>
+		</fileSet>
+	</fileSets>
+</assembly>
+

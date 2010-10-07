@@ -1,0 +1,52 @@
+#!/bin/bash
+#
+# ciserver Startup script for CI Server.
+#
+# chkconfig: 345 90 14
+# description: CI Server startup script.
+#
+# This will startup the Tomcat which contains the Hudson
+#
+#
+# Start Hudson
+
+RETVAL=0
+
+start() {
+	su -l ${hudson.user} -c "cd ${hudson.home}/tomcat-${project.version}/bin; ./startup.sh"
+}
+
+stop() {
+	su -l ${hudson.user} -c "cd ${hudson.home}/tomcat-${project.version}/bin; ./shutdown.sh"
+}
+
+status() {
+	PID=`ps -U ${hudson.user} ef | grep catalina | grep -v "grep catalina" | cut -d" " -f2`
+	if [ -z $PID ]; then
+		RETVAL=3
+		echo "ciserver is stopped."
+	else
+		echo "ciserver (pid $PID) is running..."
+	fi
+}
+
+# See how we were called.
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  status)
+    status
+    ;;
+  restart)
+    stop
+    start
+    ;;
+  *)
+    echo $"Usage: $prog {start|stop|status|restart}"
+    exit 1
+esac
+exit $RETVAL;

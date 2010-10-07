@@ -1,0 +1,83 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.soebes.cienvironment.hudson</groupId>
+		<artifactId>hudson-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+
+    <artifactId>cienv-hudsonuser</artifactId>
+    <packaging>rpm</packaging>
+    <name>CIEnvironment :: Hudson ::   Build User</name>
+
+	<description>
+		This contains the build user configuration which contains
+		the .bashrc for the new created user on the CI environment.
+	</description>
+
+	<build>
+		<resources>
+			<resource>
+				<!-- @TODO We should use a name instead of hard coded values. -->
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>rpm-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+					<requires>
+						<require>java-1.6.0-sun &gt;= 1.6</require>
+					</requires>
+					<preinstallScriptlet>
+						<!-- We use the file from the target area, cause this file is copied and filtered (placeholders have been replaced). -->
+						<scriptFile>${project.build.outputDirectory}/preinstall.sh</scriptFile>
+						<fileEncoding>utf-8</fileEncoding>
+					</preinstallScriptlet>
+<!--
+					<postremoveScriptlet>
+						<scriptFile>postremove.sh</scriptFile>
+						<fileEncoding>utf-8</fileEncoding>
+					</postremoveScriptlet>
+					<installScriptlet>
+						<scriptFile>install.sh</scriptFile>
+						<fileEncoding>utf-8</fileEncoding>
+					</installScriptlet>
+-->
+<!--
+					<postinstallScriptlet>
+						<scriptFile>postinstall.sh</scriptFile>
+						<fileEncoding>utf-8</fileEncoding>
+					</postinstallScriptlet>
+-->
+                    <mappings>
+                       <mapping>
+                            <directory>${hudson.home}</directory>
+                            <filemode>0644</filemode>
+                            <username>${hudson.user}</username>
+                            <groupname>${hudson.group}</groupname>
+                            <sources>
+                                <source>
+                                    <location>${basedir}/src/main/resources/.bashrc</location>
+                                </source>
+                            </sources>
+                        </mapping>
+                       <mapping>
+                            <directory>${hudson.home}</directory>
+                            <filemode>0755</filemode>
+                            <username>${hudson.user}</username>
+                            <groupname>${hudson.group}</groupname>
+                        </mapping>
+                    </mappings>
+                </configuration>
+            </plugin>
+
+		</plugins>
+	</build>	
+</project>

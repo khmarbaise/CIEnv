@@ -1,0 +1,61 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.soebes.cienvironment.hudson</groupId>
+		<artifactId>hudson-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+
+	<groupId>com.soebes.cienvironment.hudson</groupId>
+    <artifactId>cienv-maven-settings</artifactId>
+    <packaging>rpm</packaging>
+    <name>CIEnvironment :: Hudson ::   Maven Settings</name>
+
+	<description>
+		This will define the configuration for Maven for the Hudson user
+	</description>
+	<build>
+		<resources>
+			<resource>
+				<!-- @TODO We should use a name instead of hard coded values. -->
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>rpm-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+					<requires>
+						<require>cienv-hudsonuser &gt;= ${project.version}</require>
+					</requires>
+                    <mappings>
+                       <mapping>
+                            <directory>${hudson.home}/.m2</directory>
+                            <filemode>0644</filemode>
+                            <username>${hudson.user}</username>
+                            <groupname>${hudson.group}</groupname>
+							<directoryIncluded>false</directoryIncluded>
+							<sources>
+								<source>
+									<location>${project.build.outputDirectory}</location>
+								</source>
+							</sources>
+                        </mapping>
+                       <mapping>
+                            <directory>${hudson.home}/.m2</directory>
+                            <filemode>0755</filemode>
+                            <username>${hudson.user}</username>
+                            <groupname>${hudson.group}</groupname>
+                        </mapping>
+                    </mappings>
+                </configuration>
+            </plugin>
+		</plugins>
+	</build>	
+</project>

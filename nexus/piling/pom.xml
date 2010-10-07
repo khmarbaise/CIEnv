@@ -1,0 +1,67 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.soebes.cienvironment.nexus</groupId>
+		<artifactId>nexus-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+
+	<groupId>com.soebes.cienvironment.nexus</groupId>
+    <artifactId>nexus-piling</artifactId>
+    <packaging>pom</packaging>
+    <name>CIEnvironment ::  Nexus :: Piling</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>proxy</artifactId>
+			<version>${project.version}</version>
+			<type>rpm</type>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>nexus</artifactId>
+			<version>${project.version}</version>
+			<type>rpm</type>
+		</dependency>		
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>tomcat</artifactId>
+			<version>${project.version}</version>
+			<type>rpm</type>
+		</dependency>		
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>nexususer</artifactId>
+			<version>${project.version}</version>
+			<type>rpm</type>
+		</dependency>		
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptors>
+						<descriptor>src/main/assembly/installation.xml</descriptor>
+					</descriptors>
+					<tarLongFileMode>gnu</tarLongFileMode>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+
+			</plugin>
+		</plugins>
+	</build>	
+</project>

@@ -1,0 +1,43 @@
+- Running under root:
+
+  - check if user build exists?
+    Yes => ok 
+    No  => create the user 
+		(default folder /home/build)
+		- add .ssh folder with public for ssh public-key-authorization
+
+
+  - Check if httpd RPM installed
+	=> No => Fail
+	- shutdown httpd
+		/etc/init.d/httpd stop (?)
+    - copy ciproxy.conf file to /etc/httpd/conf.d/
+
+	- Shutdown CI Server (if existing?)
+		- check if ciserver script (etc/init.d) exists ?
+			YES => ciserver stop
+
+	- copy hudson-1.0-bin.tar.gz to /home/build/
+	- copy hudson-plugins-1.0-bin.tar.gz to /home/build
+
+	- Extract the above packages
+		- su -l build "tar -zxf hudson-1.0-bin.tar.gz"
+		- su -l build "tar -zxf hudson-plugins-1.0-bin.tar.gz"
+
+	- Remove archives
+		- su -l build "rm -fr hudson-1.0-bin.tar.gz"
+		- su -l build "rm -fr hudson-plugins-1.0-bin.tar.gz"
+
+	- Check if ci Server script already exists in /etc/init.d/ ?
+		No =>	- copy ciserver Script to /etc/init.d/..
+				- chkconfig --add ciserver	
+
+		Yes => Make a backup of the old script (mv /etc/init.d/ciserver /etc/init.d/ciserver.backup)
+
+
+
+ /etc/init.d/httpd start
+
+ /etc/init.d/ciserver start
+
+
