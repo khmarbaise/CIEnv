@@ -34,7 +34,7 @@
 	<modules>
 		<module>tomcat-deps</module>
 		<module>hudson</module>
-		<module>nexus</module>
+		<!-- <module>nexus</module> -->
 	</modules>
 
     <inceptionYear>2010</inceptionYear>
