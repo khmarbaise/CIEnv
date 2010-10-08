@@ -116,12 +116,6 @@
 									<type>hpi</type>
 									<version>1.3</version>
 								</artifactItem>
-								<artifactItem>
-									<groupId>org.tomfolga</groupId>
-									<artifactId>maven-info</artifactId>
-									<version>0.0.2</version>
-									<type>hpi</type>
-								</artifactItem>
 							</artifactItems>
 						</configuration>
 					</execution>
