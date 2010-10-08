@@ -8,7 +8,7 @@ Contained Components
 
 * Maven
 * Hudson
-* Nexus
+* Nexus (currently turned off, cause of some problems).
 * Tomcat
 
 Important Note
