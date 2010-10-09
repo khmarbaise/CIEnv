@@ -1,7 +1,10 @@
 CIEnv
 =====
 
-This is an *C*ontinious *I*ntegration Environment Setup based on Maven
+This is an *C*ontinious *I*ntegration Environment Setup based on Maven which
+contains different components like Hudson and Nexus.
+
+It is assumes that Nexus and the Hudson instances are running on separate servers.
 
 Contained Components
 ====================
@@ -15,6 +18,8 @@ Important Note
 ==============
 Based on the usage of the [Maven RPM plugin](http://mojo.codehaus.org/rpm-maven-plugin/) this build will not 
 work on Windows environment. You have to install rpmbuild to get it running.
+
+## Repository Setup for Maven Build
 
 To get this project to work you have to configure the following repository
 into your settings.xml file:
@@ -66,12 +71,8 @@ The following RPM's will be created:
 cienv-hudsonuser
 cienv-hudson
 
-The result are a list of RPM's which current only tested with CentOS 5.4
+The result are a list of RPM's which current only tested with CentOS 5.5
 
-## Repository Setup for Maven Build
-
-You have to setup the following Maven repositories to the build running.
-* ?
 
 ## License
 This project is released under the terms of the [Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
