@@ -72,23 +72,6 @@
     </distributionManagement>
 
 
-    <repositories>
-        <repository>
-            <id>sonatype-nexus</id>
-            <name>Sonatype Nexus</name>
-            <url>https://repository.sonatype.org/content/groups/forge</url>
-            <layout>default</layout>
-            <releases>
-                <enabled>false</enabled>
-                <updatePolicy>default</updatePolicy>
-                <checksumPolicy>warn</checksumPolicy>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <build>
         <pluginManagement>
             <plugins>
