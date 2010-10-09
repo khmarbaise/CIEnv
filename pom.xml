@@ -19,11 +19,11 @@
         <nexus.version>1.5.0</nexus.version>
         <!-- Home folder for the nexus user on the repository manager server -->
         <nexus.user>nexus</nexus.user>
-        <nexus.home>/opt/build/nexus</nexus.home>
+        <nexus.home>/home/nexus</nexus.home>
         <nexus.group>nexus</nexus.group>
         <!-- Home folder for the Hudson build server -->
         <hudson.user>hudson</hudson.user>
-        <hudson.home>/opt/build/hudson</hudson.home>
+        <hudson.home>/home/hudson</hudson.home>
         <hudson.group>hudson</hudson.group>
         <!-- Mail information for the build servers -->
         <hudson.mail.adminAddress>info@soebes.de</hudson.mail.adminAddress>
