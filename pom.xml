@@ -5,37 +5,37 @@
     <groupId>com.soebes.cienvironment</groupId>
     <artifactId>ci-parent</artifactId>
     <packaging>pom</packaging>
-	<version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>CIEnvironment :: Parent</name>
-	<properties>
-		<!-- The Tomcat Release we are using for integration-test and building the delivery package -->
-		<tomcat.major>6</tomcat.major>
-		<tomcat.minor>0</tomcat.minor>
-		<tomcat.patch>24</tomcat.patch>
-		<tomcat.version>${tomcat.major}.${tomcat.minor}.${tomcat.patch}</tomcat.version>
-		<!--  The Hudson Release we are using -->
-		<hudson.version>1.356</hudson.version>
-		<!--  The Sonatype Nexus Release we are using. -->
-		<nexus.version>1.5.0</nexus.version>
-		<!-- Home folder for the nexus user on the repository manager server -->
-		<nexus.user>nexus</nexus.user>
-		<nexus.home>/opt/build/nexus</nexus.home>
-		<nexus.group>nexus</nexus.group>
-		<!-- Home folder for the Hudson build server -->
-		<hudson.user>hudson</hudson.user>
-		<hudson.home>/opt/build/hudson</hudson.home>
-		<hudson.group>hudson</hudson.group>
-		<!-- Mail information for the build servers -->
-		<hudson.mail.adminAddress>info@soebes.de</hudson.mail.adminAddress>
-		<!-- Encoding for the source code -->
+    <properties>
+        <!-- The Tomcat Release we are using for integration-test and building the delivery package -->
+        <tomcat.major>6</tomcat.major>
+        <tomcat.minor>0</tomcat.minor>
+        <tomcat.patch>24</tomcat.patch>
+        <tomcat.version>${tomcat.major}.${tomcat.minor}.${tomcat.patch}</tomcat.version>
+        <!--  The Hudson Release we are using -->
+        <hudson.version>1.356</hudson.version>
+        <!--  The Sonatype Nexus Release we are using. -->
+        <nexus.version>1.5.0</nexus.version>
+        <!-- Home folder for the nexus user on the repository manager server -->
+        <nexus.user>nexus</nexus.user>
+        <nexus.home>/opt/build/nexus</nexus.home>
+        <nexus.group>nexus</nexus.group>
+        <!-- Home folder for the Hudson build server -->
+        <hudson.user>hudson</hudson.user>
+        <hudson.home>/opt/build/hudson</hudson.home>
+        <hudson.group>hudson</hudson.group>
+        <!-- Mail information for the build servers -->
+        <hudson.mail.adminAddress>info@soebes.de</hudson.mail.adminAddress>
+        <!-- Encoding for the source code -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+    </properties>
 
-	<modules>
-		<module>tomcat-deps</module>
-		<module>hudson</module>
-		<module>nexus</module>
-	</modules>
+    <modules>
+        <module>tomcat-deps</module>
+        <module>hudson</module>
+        <module>nexus</module>
+    </modules>
 
     <inceptionYear>2010</inceptionYear>
     <organization>
@@ -73,82 +73,82 @@
 
 
     <repositories>
-      <repository>
-        <id>sonatype-nexus</id>
-        <name>Sonatype Nexus</name>
-        <url>https://repository.sonatype.org/content/groups/forge</url>
-        <layout>default</layout>
-        <releases>
-          <enabled>false</enabled>
-          <updatePolicy>default</updatePolicy>
-          <checksumPolicy>warn</checksumPolicy>
-        </releases>
-        <snapshots>
-          <enabled>false</enabled>
-        </snapshots>
-      </repository>
+        <repository>
+            <id>sonatype-nexus</id>
+            <name>Sonatype Nexus</name>
+            <url>https://repository.sonatype.org/content/groups/forge</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>false</enabled>
+                <updatePolicy>default</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
     </repositories>
 
-	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-release-plugin</artifactId>
-					<version>2.0</version>
-					<configuration>
-						<stagingRepository>STAGING</stagingRepository>
-						<autoVersionSubmodules>true</autoVersionSubmodules>
-						<preparationGoals>install</preparationGoals>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>rpm-maven-plugin</artifactId>
-					<version>2.1-alpha-1</version>
-					<configuration>
-						<needarch>x86_64</needarch>
-						<copyright>SoEBeS</copyright>
-						<distribution>${project.name}</distribution>
-						<group>Development/CIEnvironment/Nexus</group>
-						<packager>SoEBeS</packager>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.0</version>
+                    <configuration>
+                        <stagingRepository>STAGING</stagingRepository>
+                        <autoVersionSubmodules>true</autoVersionSubmodules>
+                        <preparationGoals>install</preparationGoals>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>rpm-maven-plugin</artifactId>
+                    <version>2.1-alpha-1</version>
+                    <configuration>
+                        <needarch>x86_64</needarch>
+                        <copyright>SoEBeS</copyright>
+                        <distribution>${project.name}</distribution>
+                        <group>Development/CIEnvironment/Nexus</group>
+                        <packager>SoEBeS</packager>
 
-						<projversion>${project.version}</projversion>
-						<release>${buildNumber}</release>
+                        <projversion>${project.version}</projversion>
+                        <release>${buildNumber}</release>
 
-						<defineStatements>
-						   <defineStatement>_unpackaged_files_terminate_build 0</defineStatement>
-						</defineStatements>
-						<defaultDirmode>2770</defaultDirmode>
-						<defaultFilemode>2644</defaultFilemode>
-<!--
-						<keyname>Karl Heinz Marbaise</keyname>
-						<keyPassphrase>
-							<passphrase>${gpg.passphrase}</passphrase>
-						</keyPassphrase>
+                        <defineStatements>
+                            <defineStatement>_unpackaged_files_terminate_build 0</defineStatement>
+                        </defineStatements>
+                        <defaultDirmode>2770</defaultDirmode>
+                        <defaultFilemode>2644</defaultFilemode>
+                        <!--
+                                                <keyname>Karl Heinz Marbaise</keyname>
+                                                <keyPassphrase>
+                                                        <passphrase>${gpg.passphrase}</passphrase>
+                                                </keyPassphrase>
 -->
-					</configuration>
-				</plugin>
+                    </configuration>
+                </plugin>
 
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-assembly-plugin</artifactId>
-					<version>2.2-beta-5</version>
-				</plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>2.2-beta-5</version>
+                </plugin>
 
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-dependency-plugin</artifactId>
-					<version>2.1</version>
-				</plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>2.1</version>
+                </plugin>
 
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-resources-plugin</artifactId>
-					<version>2.4.2</version>
-				</plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>2.4.2</version>
+                </plugin>
 
-			</plugins>
-		</pluginManagement>
-	</build>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>

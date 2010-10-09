@@ -2,84 +2,83 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>com.soebes.cienvironment.hudson</groupId>
-		<artifactId>hudson-parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>..</relativePath>
-	</parent>
+    <parent>
+        <groupId>com.soebes.cienvironment.hudson</groupId>
+        <artifactId>hudson-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>..</relativePath>
+    </parent>
 
     <artifactId>cienv-tomcat</artifactId>
     <packaging>rpm</packaging>
     <name>CIEnvironment :: Hudson ::   Tomcat</name>
 
-	<description>
-		This contains the components to create a full running Tomcat Servlet Engine.
-	</description>
+    <description>
+        This contains the components to create a full running Tomcat Servlet Engine.
+    </description>
 
-	<dependencies>
-		<dependency>
-    		<groupId>com.soebes.cienvironment</groupId>
-			<artifactId>tomcat-deps</artifactId>
-			<version>${project.version}</version>
-			<type>pom</type>
-		</dependency>
-	</dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>com.soebes.cienvironment</groupId>
+            <artifactId>tomcat-deps</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+        </dependency>
+    </dependencies>
 
-	<build>
-		<resources>
-			<resource>
-				<!-- @TODO We should use a name instead of hard coded values. -->
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
+    <build>
+        <resources>
+            <resource>
+                <!-- @TODO We should use a name instead of hard coded values. -->
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
 
-						<configuration>
-							<outputDirectory>${project.build.directory}/dependencies</outputDirectory>
-							<overWriteReleases>false</overWriteReleases>
-							<overWriteSnapshots>true</overWriteSnapshots>
-							<excludeTransitive>false</excludeTransitive>
-							<excludeTypes>pom</excludeTypes>
-							<stripVersion>true</stripVersion>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/dependencies</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>true</overWriteSnapshots>
+                            <excludeTransitive>false</excludeTransitive>
+                            <excludeTypes>pom</excludeTypes>
+                            <stripVersion>true</stripVersion>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>rpm-maven-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
-					<requires>
-						<require>cienv-hudsonuser &gt;= ${project.version}</require>
-						<require>java-1.6.0-sun &gt;= 1.6</require>
-					</requires>
-					<postinstallScriptlet>
-						<script>/sbin/chkconfig --add ciserver</script>
-					</postinstallScriptlet>
-					<preremoveScriptlet>
-						<script>/sbin/service ciserver stop &amp;&gt;/dev/null || logger -t cienv/rpm "Unexpected problem during stopping of ciserver."
-								/sbin/chkconfig --del ciserver</script>
-					</preremoveScriptlet>
+                    <requires>
+                        <require>cienv-hudsonuser &gt;= ${project.version}</require>
+                    </requires>
+                    <postinstallScriptlet>
+                        <script>/sbin/chkconfig --add ciserver</script>
+                    </postinstallScriptlet>
+                    <preremoveScriptlet>
+                        <script>/sbin/service ciserver stop &amp;&gt;/dev/null || logger -t cienv/rpm "Unexpected problem during stopping of ciserver."
+                        /sbin/chkconfig --del ciserver</script>
+                    </preremoveScriptlet>
                     <mappings>
-                       <mapping>
+                        <mapping>
                             <directory>${hudson.home}/tomcat-${project.version}/lib</directory>
                             <filemode>0644</filemode>
                             <username>${hudson.user}</username>
                             <groupname>${hudson.group}</groupname>
-							<directoryIncluded>false</directoryIncluded>
+                            <directoryIncluded>false</directoryIncluded>
                             <sources>
                                 <source>
                                     <location>${project.build.directory}/dependencies</location>
@@ -87,7 +86,7 @@
                             </sources>
                         </mapping>
 
-                       <mapping>
+                        <mapping>
                             <directory>${hudson.home}/tomcat-${project.version}/bin</directory>
                             <filemode>0755</filemode>
                             <username>${hudson.user}</username>
@@ -95,13 +94,13 @@
                             <sources>
                                 <source>
                                     <location>${basedir}/src/main/resources/bin/</location>
-									<includes>
-										<include>*.sh</include>
-									</includes>
+                                    <includes>
+                                        <include>*.sh</include>
+                                    </includes>
                                 </source>
                             </sources>
                         </mapping>
-                       <mapping>
+                        <mapping>
                             <directory>${hudson.home}/tomcat-${project.version}/bin</directory>
                             <filemode>0644</filemode>
                             <username>${hudson.user}</username>
@@ -109,13 +108,13 @@
                             <sources>
                                 <source>
                                     <location>${basedir}/src/main/resources/bin/</location>
-									<excludes>
-										<exclude>*.sh</exclude>
-									</excludes>
+                                    <excludes>
+                                        <exclude>*.sh</exclude>
+                                    </excludes>
                                 </source>
                             </sources>
                         </mapping>
-                       <mapping>
+                        <mapping>
                             <directory>${hudson.home}/tomcat-${project.version}/conf</directory>
                             <filemode>0644</filemode>
                             <username>${hudson.user}</username>
@@ -131,56 +130,56 @@
                             <filemode>0755</filemode>
                             <username>${hudson.user}</username>
                             <groupname>${hudson.group}</groupname>
-						</mapping>
+                        </mapping>
                         <mapping>
                             <directory>${hudson.home}/tomcat-${project.version}/lib</directory>
                             <filemode>0755</filemode>
                             <username>${hudson.user}</username>
                             <groupname>${hudson.group}</groupname>
-						</mapping>
+                        </mapping>
                         <mapping>
                             <directory>${hudson.home}/tomcat-${project.version}/bin</directory>
                             <filemode>0755</filemode>
                             <username>${hudson.user}</username>
                             <groupname>${hudson.group}</groupname>
-						</mapping>
-                       <mapping>
+                        </mapping>
+                        <mapping>
                             <directory>${hudson.home}/tomcat-${project.version}/conf</directory>
                             <filemode>0755</filemode>
                             <username>${hudson.user}</username>
                             <groupname>${hudson.group}</groupname>
                         </mapping>
-                       <mapping>
+                        <mapping>
                             <directory>${hudson.home}/tomcat-${project.version}/conf/Catalina</directory>
                             <filemode>0755</filemode>
                             <username>${hudson.user}</username>
                             <groupname>${hudson.group}</groupname>
                         </mapping>
-                       <mapping>
+                        <mapping>
                             <directory>${hudson.home}/tomcat-${project.version}/conf/Catalina/localhost</directory>
                             <filemode>0755</filemode>
                             <username>${hudson.user}</username>
                             <groupname>${hudson.group}</groupname>
                         </mapping>
-                       <mapping>
+                        <mapping>
                             <directory>${hudson.home}/tomcat-${project.version}/webapps</directory>
                             <filemode>0755</filemode>
                             <username>${hudson.user}</username>
                             <groupname>${hudson.group}</groupname>
-                       </mapping>
-                       <mapping>
+                        </mapping>
+                        <mapping>
                             <directory>${hudson.home}/tomcat-${project.version}/logs</directory>
                             <filemode>0755</filemode>
                             <username>${hudson.user}</username>
                             <groupname>${hudson.group}</groupname>
                         </mapping>
-                       <mapping>
+                        <mapping>
                             <directory>${hudson.home}/tomcat-${project.version}/works</directory>
                             <filemode>0755</filemode>
                             <username>${hudson.user}</username>
                             <groupname>${hudson.group}</groupname>
                         </mapping>
-                       <mapping>
+                        <mapping>
                             <directory>${hudson.home}/tomcat-${project.version}/temp</directory>
                             <filemode>0755</filemode>
                             <username>${hudson.user}</username>
@@ -196,9 +195,9 @@
                             <sources>
                                 <source>
                                     <location>${project.build.outputDirectory}</location>
-									<includes>
-										<include>ciserver</include>
-									</includes>
+                                    <includes>
+                                        <include>ciserver</include>
+                                    </includes>
                                 </source>
                             </sources>
                         </mapping>
@@ -206,6 +205,6 @@
                 </configuration>
             </plugin>
 
-		</plugins>
-	</build>	
+        </plugins>
+    </build>
 </project>

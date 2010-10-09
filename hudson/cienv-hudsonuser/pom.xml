@@ -2,62 +2,62 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>com.soebes.cienvironment.hudson</groupId>
-		<artifactId>hudson-parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>..</relativePath>
-	</parent>
+    <parent>
+        <groupId>com.soebes.cienvironment.hudson</groupId>
+        <artifactId>hudson-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>..</relativePath>
+    </parent>
 
     <artifactId>cienv-hudsonuser</artifactId>
     <packaging>rpm</packaging>
     <name>CIEnvironment :: Hudson ::   Build User</name>
 
-	<description>
-		This contains the build user configuration which contains
-		the .bashrc for the new created user on the CI environment.
-	</description>
+    <description>
+        This contains the build user configuration which contains
+        the .bashrc for the new created user on the CI environment.
+    </description>
 
-	<build>
-		<resources>
-			<resource>
-				<!-- @TODO We should use a name instead of hard coded values. -->
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
-		<plugins>
-			<plugin>
+    <build>
+        <resources>
+            <resource>
+                <!-- @TODO We should use a name instead of hard coded values. -->
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>rpm-maven-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
-					<requires>
-						<require>java-1.6.0-sun &gt;= 1.6</require>
-					</requires>
-					<preinstallScriptlet>
-						<!-- We use the file from the target area, cause this file is copied and filtered (placeholders have been replaced). -->
-						<scriptFile>${project.build.outputDirectory}/preinstall.sh</scriptFile>
-						<fileEncoding>utf-8</fileEncoding>
-					</preinstallScriptlet>
-<!--
-					<postremoveScriptlet>
-						<scriptFile>postremove.sh</scriptFile>
-						<fileEncoding>utf-8</fileEncoding>
-					</postremoveScriptlet>
-					<installScriptlet>
-						<scriptFile>install.sh</scriptFile>
-						<fileEncoding>utf-8</fileEncoding>
-					</installScriptlet>
+                    <requires>
+                        <require>java-1.6.0-sun &gt;= 1.6</require>
+                    </requires>
+                    <preinstallScriptlet>
+                        <!-- We use the file from the target area, cause this file is copied and filtered (placeholders have been replaced). -->
+                        <scriptFile>${project.build.outputDirectory}/preinstall.sh</scriptFile>
+                        <fileEncoding>utf-8</fileEncoding>
+                    </preinstallScriptlet>
+                    <!--
+                                        <postremoveScriptlet>
+                                                <scriptFile>postremove.sh</scriptFile>
+                                                <fileEncoding>utf-8</fileEncoding>
+                                        </postremoveScriptlet>
+                                        <installScriptlet>
+                                                <scriptFile>install.sh</scriptFile>
+                                                <fileEncoding>utf-8</fileEncoding>
+                                        </installScriptlet>
 -->
 <!--
-					<postinstallScriptlet>
-						<scriptFile>postinstall.sh</scriptFile>
-						<fileEncoding>utf-8</fileEncoding>
-					</postinstallScriptlet>
+                                        <postinstallScriptlet>
+                                                <scriptFile>postinstall.sh</scriptFile>
+                                                <fileEncoding>utf-8</fileEncoding>
+                                        </postinstallScriptlet>
 -->
                     <mappings>
-                       <mapping>
+                        <mapping>
                             <directory>${hudson.home}</directory>
                             <filemode>0644</filemode>
                             <username>${hudson.user}</username>
@@ -68,7 +68,7 @@
                                 </source>
                             </sources>
                         </mapping>
-                       <mapping>
+                        <mapping>
                             <directory>${hudson.home}</directory>
                             <filemode>0755</filemode>
                             <username>${hudson.user}</username>
@@ -78,6 +78,6 @@
                 </configuration>
             </plugin>
 
-		</plugins>
-	</build>	
+        </plugins>
+    </build>
 </project>

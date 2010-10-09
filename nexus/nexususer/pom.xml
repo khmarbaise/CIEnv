@@ -2,26 +2,26 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>com.soebes.cienvironment.nexus</groupId>
-    	<artifactId>nexus-parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>..</relativePath>
-	</parent>
+    <parent>
+        <groupId>com.soebes.cienvironment.nexus</groupId>
+        <artifactId>nexus-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>..</relativePath>
+    </parent>
 
     <artifactId>nexususer</artifactId>
     <packaging>rpm</packaging>
     <name>CIEnvironment ::  Nexus ::   Nexus User</name>
 
-	<build>
-		<plugins>
-			<plugin>
+    <build>
+        <plugins>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>rpm-maven-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
                     <mappings>
-                       <mapping>
+                        <mapping>
                             <directory>${nexus.home}</directory>
                             <filemode>0644</filemode>
                             <username>${nexus.user}</username>
@@ -35,7 +35,6 @@
                     </mappings>
                 </configuration>
             </plugin>
-
-		</plugins>
-	</build>	
+        </plugins>
+    </build>
 </project>

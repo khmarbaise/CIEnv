@@ -16,6 +16,46 @@ Important Note
 Based on the usage of the [Maven RPM plugin](http://mojo.codehaus.org/rpm-maven-plugin/) this build will not 
 work on Windows environment. You have to install rpmbuild to get it running.
 
+settings.xml
+============
+<settings
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+  <activeProfiles>
+    <activeProfile>sonatype-nexus</activeProfile>
+  </activeProfiles>
+
+  <profiles>
+    <profile>
+      <id>sonatype-nexus</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+
+    <repositories>
+      <repository>
+        <id>sonatype-nexus</id>
+        <name>Sonatype Nexus</name>
+        <url>https://repository.sonatype.org/content/groups/forge</url>
+        <layout>default</layout>
+        <releases>
+          <enabled>true</enabled>
+          <updatePolicy>allways</updatePolicy>
+          <checksumPolicy>warn</checksumPolicy>
+        </releases>
+        <snapshots>
+          <enabled>false</enabled>
+        </snapshots>
+      </repository>
+    </repositories>
+
+    </profile>
+  </profiles>
+</settings>
+
+
 The Hudson is placed into a Tomcat 6.0.24. The configuration is intended to
 serve via a Apache proxy to the Tomcat to achieve calling of the Hudson site
 just giving the URL of the Hudson server.

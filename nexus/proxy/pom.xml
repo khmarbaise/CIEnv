@@ -2,36 +2,36 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>com.soebes.cienvironment.nexus</groupId>
-		<artifactId>nexus-parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>..</relativePath>
-	</parent>
+    <parent>
+        <groupId>com.soebes.cienvironment.nexus</groupId>
+        <artifactId>nexus-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>..</relativePath>
+    </parent>
 
-	<groupId>com.soebes.cienvironment.nexus</groupId>
+    <groupId>com.soebes.cienvironment.nexus</groupId>
     <artifactId>proxy</artifactId>
     <packaging>rpm</packaging>
     <name>CIEnvironment ::  Nexus ::   Proxy</name>
-	<description>This contains the proxy configuration for the Apache Server to proxy all request from http:// to the localhost:8080</description>
+    <description>This contains the proxy configuration for the Apache Server to proxy all request from http:// to the localhost:8080</description>
 
-	<build>
-		<plugins>
+    <build>
+        <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>rpm-maven-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
-					<defaultGroupname>root</defaultGroupname>
-					<defaultUsername>root</defaultUsername>
-					<defaultDirMode>2770</defaultDirMode>
-					<defaultFileMode>2770</defaultFileMode>
+                    <defaultGroupname>root</defaultGroupname>
+                    <defaultUsername>root</defaultUsername>
+                    <defaultDirMode>2770</defaultDirMode>
+                    <defaultFileMode>2770</defaultFileMode>
                     <mappings>
                         <mapping>
                             <directory>/etc/httpd/conf.d</directory>
                             <filemode>0644</filemode>
-							<username>root</username>
-							<groupname>root</groupname>
+                            <username>root</username>
+                            <groupname>root</groupname>
                             <sources>
                                 <source>
                                     <location>${basedir}/src/main/resources/nexus-proxy.conf</location>
@@ -42,7 +42,7 @@
                     </mappings>
                 </configuration>
             </plugin>
-		</plugins>
-	</build>
+        </plugins>
+    </build>
 
 </project>
