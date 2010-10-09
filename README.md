@@ -8,7 +8,7 @@ Contained Components
 
 * Maven
 * Hudson
-* Nexus (currently turned off, cause of some problems).
+* Nexus
 * Tomcat
 
 Important Note
@@ -16,54 +16,55 @@ Important Note
 Based on the usage of the [Maven RPM plugin](http://mojo.codehaus.org/rpm-maven-plugin/) this build will not 
 work on Windows environment. You have to install rpmbuild to get it running.
 
-settings.xml
-============
-<settings
-  xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+To get this project to work you have to configure the following repository
+into your settings.xml file:
 
-  <activeProfiles>
-    <activeProfile>sonatype-nexus</activeProfile>
-  </activeProfiles>
+    <settings
+      xmlns="http://maven.apache.org/POM/4.0.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
 
-  <profiles>
-    <profile>
-      <id>sonatype-nexus</id>
-      <activation>
-        <activeByDefault>false</activeByDefault>
-      </activation>
+      <activeProfiles>
+        <activeProfile>sonatype-nexus</activeProfile>
+      </activeProfiles>
 
-    <repositories>
-      <repository>
-        <id>sonatype-nexus</id>
-        <name>Sonatype Nexus</name>
-        <url>https://repository.sonatype.org/content/groups/forge</url>
-        <layout>default</layout>
-        <releases>
-          <enabled>true</enabled>
-          <updatePolicy>allways</updatePolicy>
-          <checksumPolicy>warn</checksumPolicy>
-        </releases>
-        <snapshots>
-          <enabled>false</enabled>
-        </snapshots>
-      </repository>
-    </repositories>
+      <profiles>
+        <profile>
+          <id>sonatype-nexus</id>
+          <activation>
+            <activeByDefault>false</activeByDefault>
+          </activation>
 
-    </profile>
-  </profiles>
-</settings>
+        <repositories>
+          <repository>
+            <id>sonatype-nexus</id>
+            <name>Sonatype Nexus</name>
+            <url>https://repository.sonatype.org/content/groups/forge</url>
+            <layout>default</layout>
+            <releases>
+              <enabled>true</enabled>
+              <updatePolicy>allways</updatePolicy>
+              <checksumPolicy>warn</checksumPolicy>
+            </releases>
+            <snapshots>
+              <enabled>false</enabled>
+            </snapshots>
+          </repository>
+        </repositories>
+
+        </profile>
+      </profiles>
+    </settings>
 
 
 The Hudson is placed into a Tomcat 6.0.24. The configuration is intended to
 serve via a Apache proxy to the Tomcat to achieve calling of the Hudson site
 just giving the URL of the Hudson server.
 
-
 The following RPM's will be created:
 
-cienv-hud 
+cienv-hudsonuser
+cienv-hudson
 
 The result are a list of RPM's which current only tested with CentOS 5.4
 
