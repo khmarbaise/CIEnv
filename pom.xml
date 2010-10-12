@@ -7,6 +7,8 @@
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
     <name>CIEnvironment :: Parent</name>
+    <description>This project has been discussed on the GearConf 2010 talk about
+            Maintenance of Continuous Integration Environments.</description>
     <properties>
         <!-- The Tomcat Release we are using for integration-test and building the delivery package -->
         <tomcat.major>6</tomcat.major>
@@ -45,32 +47,23 @@
 
     <licenses>
         <license>
-            <name>Commerical</name>
+            <name>Apache License 2.0</name>
             <url>http://www.soebes.de/LICENSE-2.0.txt</url>
             <distribution>repo</distribution>
-            <comments>Apache License 2.0</comments>
         </license>
     </licenses>
 
+    <developers>
+      <developer>
+        <name>Karl Heinz Marbaise</name>
+      </developer>
+    </developers>
+
     <scm>
-        <connection>scm:svn:http://svn.serverix/projekte/cienv</connection>
-        <developerConnection>scm:svn:http://svn.serverix/projekte/cienv/trunk</developerConnection>
-        <url>http://www.soebes.de</url>
+      <connection>scm:git@github.com/khmarbaise/CIEnv.git</connection>
+      <developerConnection>scm:git:git@github.com:khmarbaise/CIEnv.git</developerConnection>
+      <url>http://github.com/khmarbaise/CIEnv</url>
     </scm>
-
-    <distributionManagement>
-        <site>
-            <id>centos</id>
-            <name>Release Site deployment</name>
-            <url>scp://178.63.43.133/var/www/html/site</url>
-        </site>
-        <repository>
-            <id>centos</id>
-            <name>Release CIENV</name>
-            <url>scp://178.63.43.133/var/www/html/repository</url>
-        </repository>
-    </distributionManagement>
-
 
     <build>
         <pluginManagement>
