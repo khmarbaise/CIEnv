@@ -40,7 +40,7 @@
                                 <artifactItem>
                                     <groupId>org.apache.maven</groupId>
                                     <artifactId>apache-maven</artifactId>
-                                    <version>3.0-beta-1</version>
+                                    <version>3.0.2</version>
                                     <classifier>bin</classifier>
                                     <type>tar.gz</type>
                                 </artifactItem>
@@ -80,9 +80,9 @@
                     <postinstallScriptlet>
                         <script>cd ${hudson.home}/tools
                             tar -zxf apache-maven-2.2.1-bin.tar.gz
-                            tar -zxf apache-maven-3.0-beta-1-bin.tar.gz
+                            tar -zxf apache-maven-3.0.2-bin.tar.gz
                             chown -R ${hudson.user}:${hudson.group} apache-maven-2.2.1
-                            chown -R ${hudson.user}:${hudson.group} apache-maven-3.0-beta-1
+                            chown -R ${hudson.user}:${hudson.group} apache-maven-3.0.2
                         </script>
                     </postinstallScriptlet>
                 </configuration>
