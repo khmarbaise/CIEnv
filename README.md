@@ -31,6 +31,7 @@ into your settings.xml file:
 
       <activeProfiles>
         <activeProfile>sonatype-nexus</activeProfile>
+        <activeProfile>jenkins</activeProfile>
       </activeProfiles>
 
       <profiles>
@@ -54,6 +55,33 @@ into your settings.xml file:
             <snapshots>
               <enabled>false</enabled>
             </snapshots>
+          </repository>
+        </repositories>
+        </profile>
+
+        <profile>
+          <id>jenkins</id>
+          <activation>
+            <activeByDefault>false</activeByDefault>
+          </activation>
+
+        <repositories>
+          <repository>
+            <id>jenkins</id>
+            <name>Jenkins Repository</name>
+            <url>http://maven.jenkins-ci.org:8081/content/repositories/releases/</url>
+            <layout>default</layout>
+            <releases>
+              <enabled>true</enabled>
+              <updatePolicy>allways</updatePolicy>
+              <checksumPolicy>warn</checksumPolicy>
+            </releases>
+            <snapshots>
+              <enabled>false</enabled>
+            </snapshots>
+          </repository>
+
+  http://maven.jenkins-ci.org:8081/content/repositories/releases/org/jenkins-ci/main/jenkins-war/
           </repository>
         </repositories>
 

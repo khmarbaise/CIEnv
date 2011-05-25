@@ -16,9 +16,9 @@
         <tomcat.patch>24</tomcat.patch>
         <tomcat.version>${tomcat.major}.${tomcat.minor}.${tomcat.patch}</tomcat.version>
         <!--  The Hudson Release we are using -->
-        <hudson.version>1.356</hudson.version>
+        <hudson.version>1.391</hudson.version>
         <!--  The Sonatype Nexus Release we are using. -->
-        <nexus.version>1.5.0</nexus.version>
+        <nexus.version>1.9.1.1</nexus.version>
         <!-- Home folder for the nexus user on the repository manager server -->
         <nexus.user>nexus</nexus.user>
         <nexus.home>/home/nexus</nexus.home>
@@ -71,7 +71,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
-                    <version>2.0</version>
+                    <version>2.1</version>
                     <configuration>
                         <stagingRepository>STAGING</stagingRepository>
                         <autoVersionSubmodules>true</autoVersionSubmodules>
